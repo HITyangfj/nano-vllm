@@ -1,3 +1,4 @@
+import inspect
 import torch
 from torch import nn
 import triton
@@ -5,6 +6,12 @@ import triton.language as tl
 
 from flash_attn import flash_attn_varlen_func, flash_attn_with_kvcache
 from nanovllm.utils.context import get_context
+
+
+def validate_attention_backend():
+    required = {"cu_seqlens_q", "cu_seqlens_k", "max_seqlen_q", "max_seqlen_k", "block_table"}
+    if not required.issubset(inspect.signature(flash_attn_varlen_func).parameters):
+        raise RuntimeError("FlashAttention >= 2.5 with paged varlen attention is required")
 
 
 @triton.jit
@@ -61,9 +68,11 @@ class Attention(nn.Module):
         k_cache, v_cache = self.k_cache, self.v_cache
         if k_cache.numel() and v_cache.numel():
             store_kvcache(k, v, k_cache, v_cache, context.slot_mapping)
-        if context.is_prefill:
-            if context.block_tables is not None:    # prefix cache
+        if not context.is_pure_decode:
+            if context.block_tables is not None:    # mixed/chunked/prefix-cached batch
                 k, v = k_cache, v_cache
+            # KV has already been written. Bottom-right causal alignment uses
+            # end_pos - query_len as the absolute origin of this chunk's queries.
             o = flash_attn_varlen_func(q, k, v,
                                        max_seqlen_q=context.max_seqlen_q, cu_seqlens_q=context.cu_seqlens_q,
                                        max_seqlen_k=context.max_seqlen_k, cu_seqlens_k=context.cu_seqlens_k,

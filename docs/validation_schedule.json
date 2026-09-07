@@ -1,0 +1,195 @@
+{
+  "kind": "CPU scheduler example; fake sampled token=7; no GPU performance data",
+  "steps": [
+    {
+      "requests": [
+        {
+          "name": "A",
+          "start": 10,
+          "end": 11,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        },
+        {
+          "name": "B",
+          "start": 20,
+          "end": 21,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        },
+        {
+          "name": "C",
+          "start": 0,
+          "end": 510,
+          "query_len": 510,
+          "phase": "prefill",
+          "sample": false
+        }
+      ],
+      "query_start_loc": [
+        0,
+        1,
+        2,
+        512
+      ],
+      "logits_indices": [
+        0,
+        1
+      ],
+      "num_slots": 512,
+      "prefill_tokens": 510,
+      "decode_tokens": 2
+    },
+    {
+      "requests": [
+        {
+          "name": "A",
+          "start": 11,
+          "end": 12,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        },
+        {
+          "name": "B",
+          "start": 21,
+          "end": 22,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        },
+        {
+          "name": "C",
+          "start": 510,
+          "end": 1020,
+          "query_len": 510,
+          "phase": "prefill",
+          "sample": false
+        }
+      ],
+      "query_start_loc": [
+        0,
+        1,
+        2,
+        512
+      ],
+      "logits_indices": [
+        0,
+        1
+      ],
+      "num_slots": 512,
+      "prefill_tokens": 510,
+      "decode_tokens": 2
+    },
+    {
+      "requests": [
+        {
+          "name": "A",
+          "start": 12,
+          "end": 13,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        },
+        {
+          "name": "B",
+          "start": 22,
+          "end": 23,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        },
+        {
+          "name": "C",
+          "start": 1020,
+          "end": 1200,
+          "query_len": 180,
+          "phase": "prefill",
+          "sample": true
+        }
+      ],
+      "query_start_loc": [
+        0,
+        1,
+        2,
+        182
+      ],
+      "logits_indices": [
+        0,
+        1,
+        181
+      ],
+      "num_slots": 182,
+      "prefill_tokens": 180,
+      "decode_tokens": 2
+    },
+    {
+      "requests": [
+        {
+          "name": "C",
+          "start": 1200,
+          "end": 1201,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        }
+      ],
+      "query_start_loc": [
+        0,
+        1
+      ],
+      "logits_indices": [
+        0
+      ],
+      "num_slots": 1,
+      "prefill_tokens": 0,
+      "decode_tokens": 1
+    },
+    {
+      "requests": [
+        {
+          "name": "C",
+          "start": 1201,
+          "end": 1202,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        }
+      ],
+      "query_start_loc": [
+        0,
+        1
+      ],
+      "logits_indices": [
+        0
+      ],
+      "num_slots": 1,
+      "prefill_tokens": 0,
+      "decode_tokens": 1
+    },
+    {
+      "requests": [
+        {
+          "name": "C",
+          "start": 1202,
+          "end": 1203,
+          "query_len": 1,
+          "phase": "decode",
+          "sample": true
+        }
+      ],
+      "query_start_loc": [
+        0,
+        1
+      ],
+      "logits_indices": [
+        0
+      ],
+      "num_slots": 1,
+      "prefill_tokens": 0,
+      "decode_tokens": 1
+    }
+  ]
+}

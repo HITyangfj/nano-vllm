@@ -101,10 +101,10 @@ class BlockManager:
         seq.block_table.clear()
 
     def can_append(self, seq: Sequence) -> bool:
-        return len(self.free_block_ids) >= (len(seq) % self.block_size == 1)
+        return len(self.free_block_ids) >= max(0, seq.num_blocks - len(seq.block_table))
 
     def may_append(self, seq: Sequence):
-        if len(seq) % self.block_size == 1:
+        if seq.num_blocks > len(seq.block_table):
             seq.block_table.append(self._allocate_block())
 
     def hash_blocks(self, seq: Sequence):
